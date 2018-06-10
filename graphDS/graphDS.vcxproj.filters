@@ -24,7 +24,7 @@
     <ClInclude Include="graph.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="GraphLnk.h">
+    <ClInclude Include="testGraph.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClCompile Include="graphDS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="testGraph.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
