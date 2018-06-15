@@ -71,16 +71,27 @@ public:
 	~Graph()
 	{
 		Edge<DistType> *pmove;
+		//for (size_t i = 0; i < this->m_numVertexs; i++)
+		//{
+		//	pmove = this->m_VertxTable[i].m_adjcentEdge;
+		//	if (pmove)
+		//	{
+		//		this->m_VertxTable[i].m_adjcentEdge = pmove->m_next;
+		//		delete pmove;
+		//		pmove = this->m_VertxTable[i].m_adjcentEdge;
+		//	}
+
+		//}
+		//delete[] m_VertxTable;
 		for (size_t i = 0; i < this->m_numVertexs; i++)
 		{
 			pmove = this->m_VertxTable[i].m_adjcentEdge;
-			if (pmove)
+			while (pmove)
 			{
 				this->m_VertxTable[i].m_adjcentEdge = pmove->m_next;
 				delete pmove;
 				pmove = this->m_VertxTable[i].m_adjcentEdge;
 			}
-
 		}
 		delete[] m_VertxTable;
 	}
@@ -159,6 +170,7 @@ public:
 		}
 	}
 private:
+
 	Vertex<NameType, DistType> *m_VertxTable;//顶点集
 	int m_numVertexs;//当前顶点的数量
 	int m_maxSize;

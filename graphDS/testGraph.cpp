@@ -30,3 +30,4 @@ int main()
 	system("color  0A");
 	return 1;
 }
+
