@@ -40,6 +40,7 @@ using namespace std;
 
 int main()
 {
+	std::pair<int, int>  mk;
 	Graph graph(7);
 	
 
@@ -70,64 +71,3 @@ int main()
 }
 
 
-
-
-
-
-
-
-//class foo
-//{
-//public:
-//	foo() { std::cout << "默认构造函数\n"; };
-//	foo(int size) 
-//	{
-//		name = new char[size + 1];
-//		int i = 0;
-//		for (  ; i < size; i++)
-//		{
-//			name[i] = 'k';
-//		}
-//		name[i] = '\0';
-//		std::cout << "构造函数\n";
-//	}
-//	foo(foo& test)
-//	{
-//		this->name = test.name;
-//		std::cout << "拷贝构造函数\n";
-//	}
-//	~foo()
-//	{
-//		delete[] name;
-//		std::cout << "析构函数\n";
-//	}
-//	char* name;
-//};
-//
-//
-//int change(foo test)
-//{
-//	
-//	return 1;
-//}
-//
-//void change(std::string& name1)
-//{
-//	std::string local = name1;
-//	char* pbuffer = const_cast<char*>(local.c_str());
-//	pbuffer[1] = 'A';
-//}
-//
-//void testStr(const char* name)
-//{
-//	std::cout << name;
-//}
-//
-//int main()
-//{
-//	foo test(10);
-//	//change(test);
-//	std::cout << test.name;
-//	return 0;
-//
-//}

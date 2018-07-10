@@ -1,7 +1,9 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
+#include <queue>
 using namespace std;
+
 
 template <typename DistType>
 class Edge
@@ -17,8 +19,13 @@ public:
 	{
 
 	}
+	//重载
+	friend bool operator < (Edge& edge1, Edge& edge2)
+	{
+		return edge1.m_weight < edge2.m_weight;
+	}
 public:
-	int m_posTable;//改变的目的顶点所在顶点集中的位置
+	int m_posTable;//目的顶点所在顶点集中的位置
 	DistType m_weight;//边的的权值
 	Edge<DistType>* m_next;//下一条边
 };
@@ -156,6 +163,29 @@ public:
 			}
 			cout << "顶点所邻接的边已经输入完毕；\n";
 		}
+	}
+	bool dijkstra(Vertex<NameType, DistType>& v1, Vertex<NameType, DistType>& v2, DistType& resultDist)
+	{
+		typedef std::pair<Edge<DistType>, Vertex<NameType, DistType>> mkPair;
+		priority_queue<mkPair, vector<mkPair>, greater<mkPair> >    Queue;
+		DistType   resultArrs[m_numEdges] = {INT_MAX};
+		int        visit[m_numVertexs] = { 0 };
+		int        path[m_numVertexs] = { 0 };
+		
+		Edge<DistType>*    head = v1.m_adjcentEdge;
+		while (head)
+		{
+			Queue.push(*head);
+			resultArrs[head->m_posTable] = head->m_weight;
+			head = head->m_next;
+		}
+		
+		
+
+		
+		
+
+
 	}
 private:
 

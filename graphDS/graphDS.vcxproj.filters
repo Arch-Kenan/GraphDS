@@ -21,21 +21,12 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="graph.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="testGraph.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="self_practise.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="graphDS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="testGraph.cpp">
