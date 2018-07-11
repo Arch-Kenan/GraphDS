@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <Windows.h>
 #include <queue>
@@ -19,15 +19,15 @@ public:
 	{
 
 	}
-	//ÖØÔØ
+	//é‡è½½
 	friend bool operator < (Edge& edge1, Edge& edge2)
 	{
 		return edge1.m_weight < edge2.m_weight;
 	}
 public:
-	int m_posTable;//Ä¿µÄ¶¥µãËùÔÚ¶¥µã¼¯ÖĞµÄÎ»ÖÃ
-	DistType m_weight;//±ßµÄµÄÈ¨Öµ
-	Edge<DistType>* m_next;//ÏÂÒ»Ìõ±ß
+	int m_posTable;//ç›®çš„é¡¶ç‚¹æ‰€åœ¨é¡¶ç‚¹é›†ä¸­çš„ä½ç½®
+	DistType m_weight;//è¾¹çš„çš„æƒå€¼
+	Edge<DistType>* m_next;//ä¸‹ä¸€æ¡è¾¹
 };
 
 
@@ -55,7 +55,7 @@ public:
 private:
 	friend class Graph<NameType, DistType>;
 	NameType m_vertexName;
-	Edge<DistType>* m_adjcentEdge;//¶¥µãµÄÁÚ±ß
+	Edge<DistType>* m_adjcentEdge;//é¡¶ç‚¹çš„é‚»è¾¹
 };
 
 
@@ -102,12 +102,12 @@ public:
 	{
 		return m_numVertexs == m_maxSize;
 	}
-	//²åÈë¶¥µãÃû×ÖÎªvertexµÄ¶¥µã
+	//æ’å…¥é¡¶ç‚¹åå­—ä¸ºvertexçš„é¡¶ç‚¹
 	bool insertVertex(const NameType vertexName)
 	{
 		if (isGraphFull())
 		{
-			cerr << "Í¼ÒÑ¾­ÂúÁË£¬ ÇëÎğÔÙ²åÈë¶¥µã£¡\n";
+			cerr << "å›¾å·²ç»æ»¡äº†ï¼Œ è¯·å‹¿å†æ’å…¥é¡¶ç‚¹ï¼\n";
 			return false;
 		}
 		else
@@ -118,20 +118,20 @@ public:
 		return true;
 	}
 
-	//ÔÚ¶¥µãÖĞÎ»ÖÃÎªp1ºÍp2µÄ¶¥µãÖ®¼ä²åÈë±ß
+	//åœ¨é¡¶ç‚¹ä¸­ä½ç½®ä¸ºp1å’Œp2çš„é¡¶ç‚¹ä¹‹é—´æ’å…¥è¾¹
 	bool insertEdge(int p1, int p2, DistType weight = m_infinite)
 	{
 		if (p1 <0 && p2 > this->m_numVertexs && p2 <0 && p2>this->m_numVertexs)
 		{
-			cerr << "±ßµÄÎ»ÖÃ²ÎÊıÉèÖÃ´íÎó£¬ Çë¼ì²é£¡\n";
+			cerr << "è¾¹çš„ä½ç½®å‚æ•°è®¾ç½®é”™è¯¯ï¼Œ è¯·æ£€æŸ¥ï¼\n";
 			return false;
 		}
 		else
 		{
 			Edge<DistType>* pmove = m_VertxTable[p1].m_adjcentEdge;
-			if (pmove == nullptr)//Èç¹û¶¥µãp1Ã»ÓĞÁÚ±ß
+			if (pmove == nullptr)//å¦‚æœé¡¶ç‚¹p1æ²¡æœ‰é‚»è¾¹
 			{
-				//½«p2½ÓÈëp1µÄºóÃæ
+				//å°†p2æ¥å…¥p1çš„åé¢
 				m_VertxTable[p1].m_adjcentEdge = new Edge<DistType>(p2, weight);
 				m_numEdges++;
 				return true;
@@ -148,7 +148,7 @@ public:
 			}
 		}
 	}
-	//´òÓ¡Í¼ÖĞ¸÷¸ö¶¥µã¼°ÆäÁ´½Ó±ßµÄÈ¨ÖØ
+	//æ‰“å°å›¾ä¸­å„ä¸ªé¡¶ç‚¹åŠå…¶é“¾æ¥è¾¹çš„æƒé‡
 	void printGraph()
 	{
 		Edge<DistType> *pmove;
@@ -161,42 +161,77 @@ public:
 				cout << pmove->m_weight << "---->" << this->m_VertxTable[pmove->m_posTable].m_vertexName << "---->";
 				pmove = pmove->m_next;
 			}
-			cout << "¶¥µãËùÁÚ½ÓµÄ±ßÒÑ¾­ÊäÈëÍê±Ï£»\n";
+			cout << "é¡¶ç‚¹æ‰€é‚»æ¥çš„è¾¹å·²ç»è¾“å…¥å®Œæ¯•ï¼›\n";
 		}
 	}
-	bool dijkstra(Vertex<NameType, DistType>& v1, Vertex<NameType, DistType>& v2, DistType& resultDist)
+	bool dijkstra(int v1, int v2, DistType& result)
 	{
-		typedef std::pair<Edge<DistType>, Vertex<NameType, DistType>> mkPair;
+		typedef std::pair< DistType, int> mkPair;
 		priority_queue<mkPair, vector<mkPair>, greater<mkPair> >    Queue;
-		DistType   resultArrs[m_numEdges] = {INT_MAX};
-		int        visit[m_numVertexs] = { 0 };
-		int        path[m_numVertexs] = { 0 };
-		
-		Edge<DistType>*    head = v1.m_adjcentEdge;
-		while (head)
+		int        visit[m_defaultSize] = { 0 };
+		int        path[m_defaultSize] = { 0 };
+		DistType   resultArrs[m_defaultSize];
+		for (size_t i = 0; i < 5; i++)
 		{
-			Queue.push(*head);
-			resultArrs[head->m_posTable] = head->m_weight;
-			head = head->m_next;
+			resultArrs[i] = INT_MAX;
 		}
-		
-		
 
-		
-		
+		//å¼€å§‹è®¿é—®
+		Edge<DistType>*    arcEdge = this->m_VertxTable[v1].m_adjcentEdge;
+		visit[v1] = 1;
+		while (arcEdge)
+		{
+			resultArrs[arcEdge->m_posTable] = arcEdge->m_weight;
+			Queue.push(mkPair(arcEdge->m_weight, arcEdge->m_posTable));
+			arcEdge = arcEdge->m_next;
+		}
 
+		//Ã‘Â­Â»Â·Â²Ã™Ã—Ã·
+		while (!Queue.empty())
+		{
+			mkPair  topForest = Queue.top();
+			Queue.pop();
+			visit[topForest.second] = 1;
+			DistType   w = topForest.first;
+			Edge<DistType>*    e = this->m_VertxTable[topForest.second].m_adjcentEdge;
 
+			while (e)
+			{
+				//é˜²æ­¢åå¤è®¡ç®—è·¯å¾„
+				if (e->m_posTable == v1)
+				{
+					e = e->m_next;
+					continue;
+				}
+				if (w + e->m_weight < resultArrs[e->m_posTable])
+				{
+					resultArrs[e->m_posTable] = w + e->m_weight;
+					path[e->m_posTable] = topForest.second;
+					Queue.push(mkPair(w + e->m_weight, e->m_posTable));
+				}
+				e = e->m_next;
+			}
+
+		}
+		result = resultArrs[v2];
+		do
+		{
+			std::cout << v2 << "çš„çˆ¶äº²æ˜¯:" << path[v2] << std::endl;
+			v2 = path[v2];	
+		} while (path[v2] != v2);
+
+		return true;
 	}
 private:
 
-	Vertex<NameType, DistType> *m_VertxTable;//¶¥µã¼¯
-	int m_numVertexs;//µ±Ç°¶¥µãµÄÊıÁ¿
+	Vertex<NameType, DistType> *m_VertxTable;//é¡¶ç‚¹é›†
+	int m_numVertexs;//å½“å‰é¡¶ç‚¹çš„æ•°é‡
 	int m_maxSize;
 	const static int m_defaultSize = 10;
-	const static DistType m_infinite = 65536;//±ßÄ¬ÈÏ×î´óÈ¨Öµ
-	int m_numEdges;//Í¼ÖĞ±ßµÄÊıÁ¿
+	const static DistType m_infinite = 65536;//è¾¹é»˜è®¤æœ€å¤§æƒå€¼
+	int m_numEdges;//å›¾ä¸­è¾¹çš„æ•°é‡
 
-	//ÓÃ¸Ã¶¥µãµÄÃû×ÖÀ´Ñ°ÕÒÆäÔÚ¶¥µã¼¯ÖĞµÄÎ»ÖÃ
+	//ç”¨è¯¥é¡¶ç‚¹çš„åå­—æ¥å¯»æ‰¾å…¶åœ¨é¡¶ç‚¹é›†ä¸­çš„ä½ç½®
 	int getVertexPostable(const NameType vertexName)
 	{
 		for (size_t i = 0; i < this->m_numVertexs; i++)
