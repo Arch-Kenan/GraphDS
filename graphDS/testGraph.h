@@ -168,7 +168,6 @@ public:
 	{
 		typedef std::pair< DistType, int> mkPair;
 		priority_queue<mkPair, vector<mkPair>, greater<mkPair> >    Queue;
-		int        visit[m_defaultSize] = { 0 };
 		int        path[m_defaultSize] = { 0 };
 		DistType   resultArrs[m_defaultSize];
 		for (size_t i = 0; i < 5; i++)
@@ -178,7 +177,6 @@ public:
 
 		//开始访问
 		Edge<DistType>*    arcEdge = this->m_VertxTable[v1].m_adjcentEdge;
-		visit[v1] = 1;
 		while (arcEdge)
 		{
 			resultArrs[arcEdge->m_posTable] = arcEdge->m_weight;
@@ -191,7 +189,6 @@ public:
 		{
 			mkPair  topForest = Queue.top();
 			Queue.pop();
-			visit[topForest.second] = 1;
 			DistType   w = topForest.first;
 			Edge<DistType>*    e = this->m_VertxTable[topForest.second].m_adjcentEdge;
 
